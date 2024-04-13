@@ -8,21 +8,25 @@ function OrganizationPage() {
     const [progress, setProgress] = useState(0);
     const [organizationObject, setOrganizationObject] = useState({});
     const [taskObject, setTaskObject] = useState({});
-    const navigate = useNavigate();
+    let navigate = useNavigate();
     let { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const organizationResponse = await axios.get(`http://localhost:3001/organizations/organization/${id}`);
-                const taskResponse = await axios.get(`http://localhost:3001/tasks/task/${id}`);
+                const taskResponse = await axios.get(`http://localhost:3001//organizations/organization/${id}/tasks`);
                 setOrganizationObject(organizationResponse.data);
                 setTaskObject(taskResponse.data);
             } catch (error) {
                 if (error.response && error.response.status === 404) {
-                    alert('Organization not found');
+                    if (error.response.config.url.includes('organizations')) {
+                        alert('Organization not found');
+                    } else if (error.response.config.url.includes('tasks')) {
+                        alert('Task not found');
+                    }
                 } else {
-                    alert('Error');
+                    alert('Error occurred while retrieving data');
                 }
             }
         };
@@ -31,7 +35,6 @@ function OrganizationPage() {
     }, [id]);
 
     return (
-    <body>
         <div className="content">
             <section className='organization-content'>
                 <div className='organization-info'>
@@ -78,7 +81,6 @@ function OrganizationPage() {
                 </div>
            </section>
         </div>
-    </body>
   )
 }
 

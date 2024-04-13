@@ -2,12 +2,13 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser');  
 const mongoose = require("mongoose");
+const cors = require('cors');
 const port = 3001;
 
 const authRouter = require("./backend/routes/authRoute");
 const organizationRouter = require('./backend/routes/organizationRoute');
 
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
