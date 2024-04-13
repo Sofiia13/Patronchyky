@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+
+@import url(css/header.css);
+@import url(css/form.css);
+@import url(css/tasks.css);
+
+:root {
+    --LBlue: #6B99C3;
+    --LGray: #E4E5EA;
+    --Gray: #D2D2D4;
+    --Blue: #16354D;
+    --Black: #0C151C;
+    --White: #fff;
+  }
+
+body {
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #2C2C2C;
+    background-color: #fff;
+    font-family: "Montserrat", sans-serif;
+}
+
+.content{
+    max-width: 944px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+}
