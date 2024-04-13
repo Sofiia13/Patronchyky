@@ -5,12 +5,14 @@ const mongoose = require("mongoose");
 const port = 3001;
 
 const authRouter = require("./backend/routes/authRoute");
+const organizationRouter = require('./backend/routes/organizationRoute');
 
 
 app.use(bodyParser.json());
 app.use(express.json());
-app.use("/auth", authRouter);
 
+app.use("/auth", authRouter);
+app.use("/organizations", organizationRouter);
 
 app.listen(port, async () => {
   mongoose.set("strictQuery", false);
