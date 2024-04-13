@@ -8,7 +8,7 @@ const createTask = async (req, res) => {
     try {
     // console.log(req.body)
 
-    // const {orgId} = req.body; хз шо це
+    const {orgId} = req.body;
       
       // Create a new task instance
       const newTask = new taskModel({
@@ -32,7 +32,7 @@ const createTask = async (req, res) => {
         { _id: organization._id },
         { $addToSet: { tasks: savedTask._id } }
       );
-       console.log(result);
+       // console.log(result);
       // If the task is saved successfully, return success response
       return res.status(201).json({ success: true, task: savedTask });
     } catch (error) {
