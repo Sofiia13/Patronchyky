@@ -66,7 +66,7 @@ const createTask = async (req, res) => {
 };
 
 const getTasks = async (req, res) => {
-  const {orgId} = req.body;
+  const orgId = req.params.id;
   try {
       // Define a mapping of priority levels to numerical values
       const priorityMap = {
@@ -76,7 +76,6 @@ const getTasks = async (req, res) => {
 
       // Query the tasks from the database
       const organization = await organizationModel.findById(orgId);
-
       let tasks = organization.tasks;
 
       // Sort the tasks based on the following conditions:

@@ -15,7 +15,7 @@ function OrganizationPage() {
         const fetchData = async () => {
             try {
                 const organizationResponse = await axios.get(`http://localhost:3001/organizations/organization/${id}`);
-                const taskResponse = await axios.get(`http://localhost:3001//organizations/organization/${id}/tasks`);
+                const taskResponse = await axios.get(`http://localhost:3001/tasks/getTasks/${id}`);
                 setOrganizationObject(organizationResponse.data);
                 setTaskObject(taskResponse.data);
             } catch (error) {
