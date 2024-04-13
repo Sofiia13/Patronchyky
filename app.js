@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
+const bodyParser = require('body-parser');  
 const mongoose = require("mongoose");
 const port = 3001;
 
 const authRouter = require('./backend/routes/authRoute');
+
+app.use(bodyParser.json());
 
 app.use('/auth', authRouter);
 
