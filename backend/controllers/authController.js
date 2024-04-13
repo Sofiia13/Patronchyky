@@ -31,8 +31,8 @@ const createOrganization = async (req, res) => {
     return res.status(200).json({ success: true });
   } catch (error) {
     return res.send(error);
-
-
+  }
+}
 const createUser = async (req, res) => {
   const { reqName, reqPassword, reqEmail } = req.body;
   try {
@@ -102,4 +102,3 @@ module.exports = {
     createOrganization,
     createUser
 };
-
