@@ -8,7 +8,7 @@ const createTask = async (req, res) => {
     try {
     // console.log(req.body)
 
-    // const {orgId} = req.body; хз шо це
+    const {orgId} = req.body;
       
       // Create a new task instance
       const newTask = new taskModel({
@@ -32,7 +32,7 @@ const createTask = async (req, res) => {
         { _id: organization._id },
         { $addToSet: { tasks: savedTask._id } }
       );
-       console.log(result);
+       // console.log(result);
       // If the task is saved successfully, return success response
       return res.status(201).json({ success: true, task: savedTask });
     } catch (error) {
@@ -66,7 +66,6 @@ const createTask = async (req, res) => {
 };
 
 const getTasks = async (req, res) => {
-  const {orgId} = req.body;
   try {
       // Define a mapping of priority levels to numerical values
       const priorityMap = {
@@ -75,9 +74,7 @@ const getTasks = async (req, res) => {
       };
 
       // Query the tasks from the database
-      const organization = await organizationModel.findById(orgId);
-
-      let tasks = organization.tasks;
+      const tasks = await taskModel.find();
 
       // Sort the tasks based on the following conditions:
       // 1. Place tasks with progress 100 at the end
@@ -96,7 +93,7 @@ const getTasks = async (req, res) => {
       });
 
       // Return the tasks in a success response
-      return res.status(200).json({tasks});
+      return res.status(200).json({ tasks });
   } catch (error) {
       // If an error occurs, log the error and return an error response
       console.error("Error getting tasks:", error);
