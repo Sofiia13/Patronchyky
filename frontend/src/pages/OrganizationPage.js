@@ -13,6 +13,8 @@ import Map from './map'
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    localStorage.setItem('latitude', latitude.toString());
+    localStorage.setItem('longitude', longitude.toString());
   }
   
   function error() {
