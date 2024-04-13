@@ -66,6 +66,7 @@ const createTask = async (req, res) => {
 };
 
 const getTasks = async (req, res) => {
+  const {orgId} = req.body;
   try {
       // Define a mapping of priority levels to numerical values
       const priorityMap = {
@@ -74,7 +75,9 @@ const getTasks = async (req, res) => {
       };
 
       // Query the tasks from the database
-      const tasks = await taskModel.find();
+      const organization = await organizationModel.findById(orgId);
+
+      let tasks = organization.tasks;
 
       // Sort the tasks based on the following conditions:
       // 1. Place tasks with progress 100 at the end
@@ -93,7 +96,7 @@ const getTasks = async (req, res) => {
       });
 
       // Return the tasks in a success response
-      return res.status(200).json({ tasks });
+      return res.status(200).json({tasks});
   } catch (error) {
       // If an error occurs, log the error and return an error response
       console.error("Error getting tasks:", error);
