@@ -2,22 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const userSchema = new Schema({
+const taskSchema = new Schema({
     name: {
         type: String,
         required : true,
     },
-    password:{
+    description: {
         type: String,
-        required : true
+        maxlength: 1000, 
+        required: true
     },
-    email: {
-        type: String,
-        required : true
-    },
-    verified: {
-        type: Boolean,
-        default: false
+    createdAt: {
+        type: Date,
+        default: Date.now
     },
     location: {
         type: {
@@ -29,7 +26,17 @@ const userSchema = new Schema({
             type: [Number], // масив чисел [довгота, широта]
             required: true
         }
-    }
+    },  
+    priority: {
+        type: String,
+        enum: ['high', 'low'],
+        default: 'low'
+    },
+    progress: {
+        type: Number,
+        min: 0,
+        max: 100
+    },
 });
 
-module.exports = mongoose.model('users', userSchema);
+module.exports = mongoose.model('tasks', taskSchema);
