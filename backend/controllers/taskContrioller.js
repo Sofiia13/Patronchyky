@@ -55,7 +55,45 @@ const createTask = async (req, res) => {
     }
 };
 
+const getTasks = async (req, res) => {
+  try {
+      // Define a mapping of priority levels to numerical values
+      const priorityMap = {
+          'high': 0,  // High priority is treated as the highest
+          'low': 1    // Low priority is treated as the lowest
+      };
+
+      // Query the tasks from the database
+      const tasks = await taskModel.find();
+
+      // Sort the tasks based on the following conditions:
+      // 1. Place tasks with progress 100 at the end
+      // 2. Within each progress level, sort tasks based on the mapped numerical values of priority
+      tasks.sort((a, b) => {
+          // Compare progress first: progress of 100 should be at the end
+          if (a.progress === 100 && b.progress !== 100) {
+              return 1;
+          }
+          if (a.progress !== 100 && b.progress === 100) {
+              return -1;
+          }
+
+          // If progress is equal and not 100, compare priorities
+          return priorityMap[a.priority] - priorityMap[b.priority];
+      });
+
+      // Return the tasks in a success response
+      return res.status(200).json({ tasks });
+  } catch (error) {
+      // If an error occurs, log the error and return an error response
+      console.error("Error getting tasks:", error);
+      return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
 module.exports = {
     createTask,
     updateTaskProgress,
+    getTasks
 };

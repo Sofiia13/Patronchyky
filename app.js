@@ -5,11 +5,12 @@ const mongoose = require("mongoose");
 const port = 3001;
 
 const authRouter = require("./backend/routes/authRoute");
-
+const taskRouter = require("./backend/routes/tasksRoute");
 
 app.use(bodyParser.json());
 app.use(express.json());
 app.use("/auth", authRouter);
+app.use("/tasks", taskRouter);
 
 
 app.listen(port, async () => {
