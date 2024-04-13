@@ -5,48 +5,44 @@ import axios from 'axios'
 import location from '../img/location.svg';
 
 function OrganizationPage() {  
-    const [progress, setProgress] = useState(0); 
-    {/*
-    let navigate = useNavigate();
-    const [organizerObject, setorganizerObject] = useState([]);
+    const [progress, setProgress] = useState(0);
+    const [organizationObject, setOrganizationObject] = useState({});
+    const [taskObject, setTaskObject] = useState({});
+    const navigate = useNavigate();
     let { id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const response = await axios.get(
-              `http://localhost:3001/organizations/organization/${id}`
-            );
-            console.log(id)
-            setorganizerObject(response.data);
-          } catch (error) {
-            if (error.response && error.response.status === 404) {
-              alert("Organization not found");
-            } else {
-                alert("Error");
+            try {
+                const organizationResponse = await axios.get(`http://localhost:3001/organizations/organization/${id}`);
+                const taskResponse = await axios.get(`http://localhost:3001/tasks/task/${id}`);
+                setOrganizationObject(organizationResponse.data);
+                setTaskObject(taskResponse.data);
+            } catch (error) {
+                if (error.response && error.response.status === 404) {
+                    alert('Organization not found');
+                } else {
+                    alert('Error');
+                }
             }
-          }
         };
-    
+
         fetchData();
-      }, [id, navigate]);
- */}
+    }, [id]);
+
     return (
     <body>
         <div className="content">
-            <section className='organizer-content'>
-                <div className='organizer-info'>
-                    <h2 className="organizer-name">organizer Name{/*organizerObject.name*/}</h2>
-                    <div className='organizer-organizer'>
-                        <h3>organizerk organizer{/*organizerObject.organizer*/}</h3>
-                    </div>
+            <section className='organization-content'>
+                <div className='organization-info'>
+                    <h2 className="organization-name">Organization Name {organizationObject.name}</h2>
                 </div>
             <div className='section-title'>
-                <h2 className="section-title">organizer description</h2>
+                <h3 className="section-title">Description</h3>
             </div>
-            <div className='organizer-description'>
+            <div className='organization-description'>
                 <p>
-                    {/*organizerObject.description*/}
+                    {organizationObject.description}
                 </p>
             </div>
             </section>
@@ -58,17 +54,23 @@ function OrganizationPage() {
                     <div className="task">
                         <div className="task-desc">
                             <div className='task-title'>
-                                <h4 className="task-name">Task name</h4>
-                                <p className='task-date'>task-date</p>
+                                <h4 className="task-name">task-name {taskObject.name}</h4>
+                                <p className='task-date'>task-date {taskObject.date}</p>
+                            </div>
+                            <div className='task-priority'>
+                                <p>task-priority {taskObject.priority}</p>
+                            </div>
+                            <div className='task-description'>
+                                <p>task-description {taskObject.description}</p>
                             </div>
                             <div className='task-location'>
                                 <img className="icon-img" src={location} alt="task-location" />
-                                <p>task-location</p>
+                                <>task-location {taskObject.location}</>
                             </div>
                             <div className='task-progres'>
                                 <h4>Progres:</h4>
                                 <div className='progress-tracker' id="progress-tracker">
-                                    <div id="progress-bar" style={{ width: `${60/*progress*/}%` }}></div>
+                                    <div id="progress-bar" style={{ width: `${taskObject.progress}%` }}></div>
                                 </div>
                             </div>
                         </div>
