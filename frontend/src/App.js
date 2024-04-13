@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import OrganizationPage from './pages/OrganizationPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import AddTasksPage from './pages/AddTasksPage';
 
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
@@ -30,7 +31,8 @@ function App() {
           <Route path="/" element={<HomePage />} /> 
           <Route path="/organization/:id" element={<OrganizationPage />} />  
           <Route path="/login" element={<LoginPage />} />  
-          <Route path="/signup" element={<SignupPage />} />        
+          <Route path="/signup" element={<SignupPage />} /> 
+          <Route path="/addtask" element={<AddTasksPage />} />       
         </Routes>
       </BrowserRouter>
 
