@@ -1,5 +1,5 @@
 const taskModel = require("../models/taskModel");
-
+const geolocation = require('geolocation');
 
 const createTask = async (req, res) => {
     const { name, description, coordinates, priority, progress } = req.body;
@@ -92,8 +92,14 @@ const getTasks = async (req, res) => {
 };
 
 
+
+
+
+
+
 module.exports = {
     createTask,
     updateTaskProgress,
-    getTasks
+    getTasks,
+
 };
