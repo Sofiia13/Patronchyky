@@ -1,0 +1,18 @@
+.submit-button {
+    color: var(--LGray);
+    font-size: 18px;
+    border-radius: 16px;
+    border-width: 0px;
+    background: var(--LBlue);
+    object-fit: auto;
+    object-position: center;
+    width: auto;
+    padding: 12px 30px;
+    align-self: center;
+    margin-top: 30px;
+    max-width: 100%;
+    transition: width 0.3s ease, font-size 0.3s ease;
+  }
+  .submit-button:hover {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 10px 36px 0 rgba(0,0,0,0.10);
+  }
