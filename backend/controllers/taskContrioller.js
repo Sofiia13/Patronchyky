@@ -3,16 +3,20 @@ const organizationModel = require('../models/organizationModel');
 
 
 const createTask = async (req, res) => {
-    const { name, description, coordinates, priority, progress } = req.body;
-    const {orgId} = req.body;
+    const { name, description, location, priority, progress } = req.body;
+  
     try {
+    // console.log(req.body)
+
+    // const {orgId} = req.body; хз шо це
+      
       // Create a new task instance
       const newTask = new taskModel({
         name,
         description,
         location: {
           type: "Point",
-          coordinates: coordinates || [0, 0], // Default coordinates if not provided
+          coordinates: location.coordinates || [0, 0], // Default coordinates if not provided
         },
         priority: priority || 'low', // Default priority if not provided
         progress: progress || 0, // Default progress if not provided
