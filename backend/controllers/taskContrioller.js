@@ -1,4 +1,5 @@
 const taskModel = require("../models/taskModel");
+const organizationModel = require('../models/organizationModel');
 
 
 const createTask = async (req, res) => {
@@ -7,6 +8,8 @@ const createTask = async (req, res) => {
     try {
     // console.log(req.body)
 
+    // const {orgId} = req.body; хз шо це
+      
       // Create a new task instance
       const newTask = new taskModel({
         name,
@@ -22,7 +25,14 @@ const createTask = async (req, res) => {
   
       // Save the new task to the database
       const savedTask = await newTask.save();
-  
+      
+      const organization = await organizationModel.findById(orgId);
+
+      const result = await organizationModel.updateOne(
+        { _id: organization._id },
+        { $addToSet: { tasks: savedTask._id } }
+      );
+       console.log(result);
       // If the task is saved successfully, return success response
       return res.status(201).json({ success: true, task: savedTask });
     } catch (error) {
