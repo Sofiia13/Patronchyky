@@ -4,6 +4,8 @@ const path = require("path");
 
 const authController = require("../controllers/authController");
 
-router.post('/signup', authController.createUser);
+/* router.post('/userSignup', authController.createUser); */
+
+router.post('/orgSignup', authController.createOrganization);
 
 module.exports = router;
