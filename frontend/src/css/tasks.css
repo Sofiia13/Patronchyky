@@ -1,13 +1,13 @@
 .task {
     background-color: var(--LGray);
     border-radius: 6px;
-    padding: 20px;
+    padding: 20px 30px;
 }
 
 .task-desc {
-    margin-top: -20px;
     display: flex;
     flex-direction: column;
+    line-height: 0em;
 }
 
 .task-title {
@@ -16,6 +16,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.task-description {
+    line-height: 1.5em;
 }
 
 .task-location {
