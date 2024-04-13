@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const port = 3000;
+const port = 3001;
 
+const authRouter = require('./backend/routes/authRoute');
 
+app.use('/auth', authRouter);
 
 app.listen(port, async () => {
     mongoose.set("strictQuery", false);
