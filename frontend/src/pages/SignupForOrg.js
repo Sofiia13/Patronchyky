@@ -80,7 +80,7 @@ const SignupForOrgPage = () => {
             required
           />
           <textarea
-            className="input-wrapper"
+            className="input-wrapper signup-textarea"
             placeholder="Describe your organization"
             id="description"
             name="reqDescription"
