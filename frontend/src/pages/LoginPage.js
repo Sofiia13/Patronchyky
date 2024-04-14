@@ -6,7 +6,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-      reqUsername: '',
+      reqEmail: '',
       reqPassword: ''
   });
 
@@ -49,8 +49,8 @@ const LoginPage = () => {
             className="input-wrapper"
             type="text"
             id="name"
-            name="reqName"
-            placeholder="Your Name"
+            name="reqEmail"
+            placeholder="Your Email"
             value={formData.reqName}
             onChange={handleChange}
             required
