@@ -56,25 +56,13 @@ const createTask = async (req, res) => {
 
         // Return success response
         return res.status(200).json({ success: true, task });
-    } catch (error) {
+        } catch (error) {
         // If an error occurs, log the error and return an error response
         console.error("Error updating task progress:", error);
         return res.status(500).json({ error: "Internal server error" });
+      }};
 
-    }
-
-    // Update the task's progress
-    task.progress = progress;
-    await task.save();
-
-    // Return success response
-    return res.status(200).json({ success: true, task });
-  } catch (error) {
-    // If an error occurs, log the error and return an error response
-    console.error("Error updating task progress:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-};
+  
 
 const getTasks = async (req, res) => {
 
