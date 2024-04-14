@@ -62,7 +62,7 @@ const validateTokenForLogged = (req, res, next)=>{
 const validateToken = (req, res, next)=>{
     const accessToken = req.cookies["access-token"];
     if(!accessToken){
-        return res.status(400).redirect('/api/login');
+        return res.status(404).json({error: "Немає токену"});
     }
     const validToken = verify(accessToken, "passwordThatWeNeedtoChange");
     
@@ -72,10 +72,17 @@ const validateToken = (req, res, next)=>{
     return next();
 };
 
+function returnIdFromCookies(req){
+    const accessToken = req.cookies["access-token"];
+    const decoded = verify(accessToken, "passwordThatWeNeedtoChange");
+    return decoded.id;
+};
+
 module.exports= {
     createToken,
     validateToken,
     validateTokenForUser,
     validateTokenForLogged,
-    validateTokenForOrg
+    validateTokenForOrg,
+    returnIdFromCookies
 };
