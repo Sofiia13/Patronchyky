@@ -4,9 +4,16 @@ const path = require("path");
 
 const authController = require("../controllers/authController");
 
-router.post("/signup", authController.createUser);
-router.post("/orgSignup", authController.createOrganization);
-// router.post('/addTask', taskController.createTask);
-// router.put('/UpdateTask', taskController.updateTaskProgress);
+
+const {validateTokenForLogged} = require('../JWT/JWT');
+
+
+router.post('/signup', validateTokenForLogged, authController.createUser);
+
+router.post('/login-for-user', validateTokenForLogged, authController.loginForUser);
+
+router.post('/login-for-org', validateTokenForLogged, authController.loginForOrg)
+
+router.post("/orgSignup", validateTokenForLogged , authController.createOrganization);
 
 module.exports = router;
