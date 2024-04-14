@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const cors = require('cors');
 const port = 3001;
+const cookieParser = require('cookie-parser');
 
 const authRouter = require("./backend/routes/authRoute");
 const taskRouter = require("./backend/routes/tasksRoute");
@@ -11,7 +12,7 @@ const organizationRouter = require('./backend/routes/organizationRoute');
 
 
 app.use(cors());
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 app.use("/auth", authRouter);
