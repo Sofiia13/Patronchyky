@@ -39,7 +39,7 @@ const SignupForUserPage = () => {
       // якщо помилка на клієнті
 
       console.error("Error:", error);
-      alert("Error: " + error.message);
+      alert("Error: " + error.response.data.error);
     }
   };
 

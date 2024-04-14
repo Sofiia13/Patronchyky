@@ -1,50 +1,49 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate  } from 'react-router-dom'; 
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-      reqEmail: '',
-      reqPassword: ''
+    reqEmail: "",
+    reqPassword: "",
   });
 
   const handleChange = (e) => {
-      const { name, value } = e.target;
-      setFormData(prevState => ({
-          ...prevState,
-          [name]: value
-      }));
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-          const tokenResponse = await axios.get('http://localhost:3001/auth/validate-token-for-logged');
-          if(tokenResponse.data.success !== true){
-            console.log(tokenResponse.data.success !== true);
-            navigate('/');
-          }
-          const response = await axios.post('http://localhost:3001/auth/login', formData,   {withCredentials: true});
-          console.log('Response:', response.data);
-          if (response.data.success === true) {
-              // ендпойнт успішої авторизації
-              // JWT
-              alert('Login successful');
-              navigate('/');
-          } else {
-              // якщо з сервера прийшла помилка
-              //placeholder
-              alert('Error during login')
-          }
-      } catch (error) {
-          // якщо помилка на клієнті
-          console.error('Error:', error);
-          alert('Error: ' + error.message)
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/auth/login",
+        formData,
+        { withCredentials: true }
+      );
+      console.log("Response:", response.data);
+      if (response.status === 200) {
+        // ендпойнт успішої авторизації
+        // JWT
+        alert("Login successful");
+        navigate("/");
+      } else {
+        // якщо з сервера прийшла помилка
+        //placeholder
+        alert("Error during login");
       }
+    } catch (error) {
+      // якщо помилка на клієнті
+      console.error("Error:", error);
+      alert("Error: " + error.message);
+    }
   };
 
   return (
@@ -85,6 +84,6 @@ const LoginPage = () => {
       </div>
     </body>
   );
-}
+};
 
 export default LoginPage;

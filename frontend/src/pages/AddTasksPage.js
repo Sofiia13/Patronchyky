@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 function AddTasksPage() {
   const [formData, setFormData] = useState({
-    reqName: '',
-    reqLocation: '',
-    reqDescription: '',
-    priority: 'Default',
+    reqName: "",
+    reqLocation: "",
+    reqDescription: "",
+    priority: "Default",
   });
 
   const handleChange = (e) => {
@@ -17,16 +17,19 @@ function AddTasksPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/addTask', formData);
+      const response = await axios.post(
+        "http://localhost:3001/tasks/addTask",
+        formData
+      );
       console.log(response.data);
       setFormData({
-        reqName: '',
-        reqLocation: '',
-        reqDescription: '',
-        priority: 'Default',
+        reqName: "",
+        reqLocation: "",
+        reqDescription: "",
+        priority: "Default",
       });
     } catch (error) {
-      console.error('Error adding task:', error);
+      console.error("Error adding task:", error);
     }
   };
 
@@ -36,7 +39,7 @@ function AddTasksPage() {
         <div className="Add-Task-form">
           <form onSubmit={handleSubmit}>
             <div className="form-item">
-                <h3 className="category-title">Task Name</h3>
+              <h3 className="category-title">Task Name</h3>
               <input
                 className="input-wrapper"
                 type="text"
@@ -65,15 +68,26 @@ function AddTasksPage() {
               <h3 className="category-title">Priority</h3>
               <div className="radio-list">
                 <div>
-                    <input type="radio" id="radioDefault" name="radio" value="Default" defaultChecked />
-                    <label htmlFor="radioDefault">Default</label>
+                  <input
+                    type="radio"
+                    id="radioDefault"
+                    name="radio"
+                    value="Default"
+                    defaultChecked
+                  />
+                  <label htmlFor="radioDefault">Default</label>
                 </div>
                 <div>
-                    <input type="radio" id="radioUrgent" name="radio" value="Urgent" />
-                    <label htmlFor="radioUrgent">Urgent</label>
+                  <input
+                    type="radio"
+                    id="radioUrgent"
+                    name="radio"
+                    value="Urgent"
+                  />
+                  <label htmlFor="radioUrgent">Urgent</label>
                 </div>
               </div>
-           </div>
+            </div>
             <div className="form-item">
               <h3 className="category-title">Description</h3>
               <textarea
@@ -114,7 +128,14 @@ function AddTasksPage() {
               />
             </div>
             <div className="buttons">
-                <button type="submit" className="submit-button" onClick={handleSubmit} id="add-task-btn">Add task</button>
+              <button
+                type="submit"
+                className="submit-button"
+                onClick={handleSubmit}
+                id="add-task-btn"
+              >
+                Add task
+              </button>
             </div>
           </form>
         </div>

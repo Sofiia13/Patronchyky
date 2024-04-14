@@ -1,7 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useParams } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import axios from "axios";
 
 const Map = () => {
+  const [events, setEvents] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/tasks/getAllTasks`
+        ); // Adjust the endpoint URL as per your backend setup
+
+        if (response.data != null) {
+          localStorage.setItem("Array", JSON.stringify(response.data));
+        } else {
+          localStorage.setItem("Array", "response.data");
+        }
+        console.log("Tasks received:", response.data); // Print received tasks
+        setEvents(response.data);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+        setError("Error fetching tasks. Please try again later.");
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
   // Define map container style
   const mapContainerStyle = {
     width: "800px",
@@ -28,7 +55,6 @@ const Map = () => {
   };
 
   // State variables for events and selected place
-  const [events, setEvents] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [showMarker, setShowMarker] = useState(false);
   const [markerPosition, setMarkerPosition] = useState(null); // State for marker position
@@ -77,13 +103,13 @@ const Map = () => {
           <Marker
             key={event.id}
             position={{
-              lat: Number(event.latitude),
-              lng: Number(event.longitude),
+              lat: Number(event.location.coordinates[0]),
+              lng: Number(event.location.coordinates[0]),
             }}
             icon={{
               scaledSize: new window.google.maps.Size(40, 40),
             }}
-            onClick={() => handleMarkerClick(event)}
+            // onClick={() => handleMarkerClick(event)}
           />
         ))}
 
@@ -110,6 +136,7 @@ const Map = () => {
           />
         )}
       </GoogleMap>
+      {error && <p>{error}</p>}
     </LoadScript>
   );
 };

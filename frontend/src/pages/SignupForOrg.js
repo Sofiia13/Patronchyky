@@ -34,13 +34,12 @@ const SignupForOrgPage = () => {
       } else {
         // якщо з сервера прийшла помилка
         //placeholder
-        alert("Error during registration");
+        alert("Error during registration", response.data.error);
       }
     } catch (error) {
       // якщо помилка на клієнті
-
       console.error("Error:", error);
-      alert("Error: " + error.message);
+      alert("Error: " + error.response.data.error);
     }
   };
 
