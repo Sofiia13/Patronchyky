@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const SignupForUserPage = () => {
+const SignupForOrgPage = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     reqUsername: "",
     reqPassword: "",
     reqEmail: "",
+    reqDescription: "",
   });
 
   const handleChange = (e) => {
@@ -46,14 +47,14 @@ const SignupForUserPage = () => {
   return (
     <body>
       <div className="form-area">
-        <h3 className="login-signup-title">Sign Up for user</h3>
+        <h3 className="login-signup-title">Sign Up for organisation</h3>
         <form className="form-content" onSubmit={handleSubmit}>
           <input
             className="input-wrapper"
             type="text"
             id="name"
             name="reqUsername"
-            placeholder="Your Name"
+            placeholder="Organisation Name"
             value={formData.reqUsername}
             onChange={handleChange}
             required
@@ -78,6 +79,15 @@ const SignupForUserPage = () => {
             onChange={handleChange}
             required
           />
+          <textarea
+            className="input-wrapper"
+            placeholder="Describe your organization"
+            id="description"
+            name="reqDescription"
+            value={formData.reqDescription}
+            onChange={handleChange}
+            required
+          />
           <button className="submit-button" type="submit" id="signupButton">
             Sign Up
           </button>
@@ -88,9 +98,9 @@ const SignupForUserPage = () => {
             </a>
           </p>
           <p className="text-link">
-            Do you want to register like organisation?{" "}
-            <a href="/signup/fororgan" className="link">
-              Sign up for organization
+            Do you want to register like ordinary user?{" "}
+            <a href="/signup/foruser" className="link">
+              Sign up for user
             </a>
           </p>
         </form>
@@ -99,4 +109,4 @@ const SignupForUserPage = () => {
   );
 };
 
-export default SignupForUserPage;
+export default SignupForOrgPage;
