@@ -86,6 +86,13 @@ function OrganizationPage() {
           <p>{organizationObject.description}</p>
         </div>
       </section>
+      <section className="map-section">
+          <h2>Map</h2>
+          <Map
+            lat={organizationObject.latitude}
+            lng={organizationObject.longitude}
+          />
+        </section>
       <section className="tasks">
         <div className="section-title">
           <h2 className="section-title">Tasks</h2>
@@ -135,14 +142,6 @@ function OrganizationPage() {
             </div>
           ))}
         </div>
-
-        <section className="map-section">
-          <h2>Map</h2>
-          <Map
-            lat={organizationObject.latitude}
-            lng={organizationObject.longitude}
-          />
-        </section>
       </section>
     </div>
   );
