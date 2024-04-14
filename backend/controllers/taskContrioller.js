@@ -1,13 +1,11 @@
 const taskModel = require("../models/taskModel");
-const organizationModel = require('../models/organizationModel');
-
+const organizationModel = require("../models/organizationModel");
 
 const createTask = async (req, res) => {
-    const { name, description, location, priority, progress } = req.body;
-  
-    try {
-    // console.log(req.body)
+  const { name, description, location, priority, progress } = req.body;
 
+  try {
+    // console.log(req.body)
     const {orgId} = req.body;
       
       // Create a new task instance
@@ -62,7 +60,20 @@ const createTask = async (req, res) => {
         // If an error occurs, log the error and return an error response
         console.error("Error updating task progress:", error);
         return res.status(500).json({ error: "Internal server error" });
+
     }
+
+    // Update the task's progress
+    task.progress = progress;
+    await task.save();
+
+    // Return success response
+    return res.status(200).json({ success: true, task });
+  } catch (error) {
+    // If an error occurs, log the error and return an error response
+    console.error("Error updating task progress:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 const getTasks = async (req, res) => {
@@ -99,16 +110,16 @@ const getTasks = async (req, res) => {
 
       // Return the tasks in a success response
       return res.status(200).json({ tasks });
+
   } catch (error) {
-      // If an error occurs, log the error and return an error response
-      console.error("Error getting tasks:", error);
-      return res.status(500).json({ error: "Internal server error" });
+    // If an error occurs, log the error and return an error response
+    console.error("Error getting tasks:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
-
 module.exports = {
-    createTask,
-    updateTaskProgress,
-    getTasks
+  createTask,
+  updateTaskProgress,
+  getTasks,
 };
