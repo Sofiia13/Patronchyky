@@ -2,6 +2,7 @@
     background-color: var(--LGray);
     border-radius: 6px;
     padding: 20px 30px;
+    margin-bottom: 20px;
 }
 
 .task-desc {
