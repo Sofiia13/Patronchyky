@@ -9,7 +9,6 @@ const organizationSchema = new Schema({
     },
     password: {
         type: String,
-        maxlength: 15, 
         required: true
     },
     description: {
