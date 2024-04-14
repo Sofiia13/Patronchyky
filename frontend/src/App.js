@@ -23,7 +23,7 @@ function App() {
          {/* Logo */}
         <div className='logo'>
           <a href="/">
-            <h2 className='logo-text'>LOGO</h2>
+            <h2 className='logo-text'>PATRONCHYKY</h2>
           </a>
         </div>
       </header>
@@ -40,6 +40,9 @@ function App() {
         </Routes>
       </BrowserRouter>
 
+      <footer>
+      <p>© 2024 Patronchyky</p>
+      </footer>
     </div>
   );
 }

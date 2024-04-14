@@ -1,5 +1,5 @@
 .header {
-    background: #6B99C3;
+    background: var(--LBlue);
     border-radius: 0px 0px 6px 6px;
     border: 0;
     line-height: 0em;
@@ -24,5 +24,19 @@ a {
     text-decoration: none;
 }
 .logo-text {
-    color: #fff;
+    color: var(--LGray);
+}
+
+footer {
+    background: #6B99C3;
+    border-radius: 6px 6px 0px 0px;
+    border: 0;
+    line-height: 0em;
+    padding: 18px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--LGray);
 }
