@@ -116,11 +116,13 @@ const login = async(req, res)=>{
         }
         else{
             const accessToken = createToken(account);
-              res.cookie("access-token", accessToken, {
-                  maxAge: 60 * 60 * 24 * 30 * 1000,
-              });
+            res.cookie("access-token", accessToken, {
+              maxAge: 60 * 60 * 24 * 30 * 1000,
+              domain: 'localhost', 
+              sameSite: 'Lax'
+          });
             console.log(accessToken);
-            res.sendStatus(200);
+            res.status(200).json({success: true})
         }
   })
   } catch (error) {

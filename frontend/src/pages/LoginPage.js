@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate  } from 'react-router-dom'; 
 
+axios.defaults.withCredentials = true
+
 const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -21,7 +23,12 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-          const response = await axios.post('http://localhost:3001/auth/login', formData);
+          const tokenResponse = await axios.get('http://localhost:3001/auth/validate-token-for-logged');
+          if(tokenResponse.data.success !== true){
+            console.log(tokenResponse.data.success !== true);
+            navigate('/');
+          }
+          const response = await axios.post('http://localhost:3001/auth/login', formData,   {withCredentials: true});
           console.log('Response:', response.data);
           if (response.data.success === true) {
               // ендпойнт успішої авторизації
