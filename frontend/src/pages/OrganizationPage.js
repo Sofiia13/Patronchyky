@@ -103,7 +103,10 @@ function OrganizationPage() {
                     src={location}
                     alt="task-location"
                   />
-                  <p>Task Location: {task.location}</p>
+                  <p>
+                    Task Location: {task.location.latitude} -{" "}
+                    {task.location.longitude}
+                  </p>
                 </div>
                 <div className="task-progress">
                   <h4>Progress:</h4>
