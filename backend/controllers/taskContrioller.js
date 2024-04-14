@@ -1,12 +1,14 @@
 const taskModel = require("../models/taskModel");
 const organizationModel = require("../models/organizationModel");
 
+const {returnIdFromCookies} = require('../JWT/JWT')
+
 const createTask = async (req, res) => {
   const { name, description, location, priority, progress } = req.body;
 
   try {
     // console.log(req.body)
-    const {orgId} = req.body;
+    const orgId = returnIdFromCookies(req);
       
       // Create a new task instance
       const newTask = new taskModel({
@@ -66,7 +68,7 @@ const createTask = async (req, res) => {
 
 const getTasks = async (req, res) => {
 
-  const orgId = req.params.id;
+  const orgId = req.params.id ;
 
   try {
       // Define a mapping of priority levels to numerical values
@@ -106,8 +108,20 @@ const getTasks = async (req, res) => {
   }
 };
 
+
+const getTask = async(req, res)=>{
+    const taskId = req.params.id ;
+    const task = await taskModel.findById(taskId);
+    if(!task){
+      return res.status(400).json({error: "Немає таски за таким ID"});
+    }
+    return res.status(200).json(task);
+
+};
+
 module.exports = {
   createTask,
   updateTaskProgress,
   getTasks,
+  getTask
 };

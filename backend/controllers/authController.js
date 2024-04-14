@@ -6,13 +6,13 @@ const {createToken} = require('../JWT/JWT');
 const organizationModel = require('../models/organizationModel');
 
 const createOrganization = async (req, res) => {
-  const { name, password, description, phoneNum, email } = req.body;
+  const { reqUsername, reqPassword, reqDescription, reqEmail } = req.body;
   try {
     const userExists = await userModel.findOne({
-      $or: [{ name: name }, { email: email }],
+      $or: [{ name: reqUsername }, { email: reqEmail }],
     });
     const orgExists = await orgModel.findOne({
-      $or: [{ name: name }, { email: email }],
+      $or: [{ name: reqUsername }, { email: reqEmail }],
     });
 
     if (userExists || orgExists) {
@@ -22,11 +22,10 @@ const createOrganization = async (req, res) => {
     }
     const hashedPass = await bcrypt.hash(password, 10);
     const newOrg = new orgModel({
-      name: name,
+      name: reqUsername,
       password: hashedPass,
-      description: description,
-      phoneNum: phoneNum,
-      email: email,
+      description: reqDescription,
+      email: reqEmail,
       verified: true,
     });
     await newOrg.save();
