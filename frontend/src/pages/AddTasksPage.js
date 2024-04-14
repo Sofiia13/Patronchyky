@@ -6,6 +6,7 @@ function AddTasksPage() {
     reqName: '',
     reqLocation: '',
     reqDescription: '',
+    priority: 'Default',
   });
 
   const handleChange = (e) => {
@@ -16,13 +17,13 @@ function AddTasksPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://example.com/tasks/add', formData);
-      console.log(response.data); // Assuming server responds with success message
-      // Optionally reset form fields after successful submission
+      const response = await axios.post('http://localhost:3001/addTask', formData);
+      console.log(response.data);
       setFormData({
         reqName: '',
         reqLocation: '',
         reqDescription: '',
+        priority: 'Default',
       });
     } catch (error) {
       console.error('Error adding task:', error);
@@ -113,8 +114,7 @@ function AddTasksPage() {
               />
             </div>
             <div className="buttons">
-                <button type="button" className="cancel-button" id="cancel-btn">Cancel</button>
-                <button type="submit" className="submit-button" id="add-task-btn">Add task</button>
+                <button type="submit" className="submit-button" onClick={handleSubmit} id="add-task-btn">Add task</button>
             </div>
           </form>
         </div>
