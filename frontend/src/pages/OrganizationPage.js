@@ -3,8 +3,32 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
 
 import location from '../img/location.svg';
+import Map from "./map";
 
-function OrganizationPage() {  
+function success(position) {
+    console.log('Work');
+  
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    localStorage.setItem('latitude', latitude.toString());
+    localStorage.setItem('longitude', longitude.toString());
+  }
+  
+  function error() {
+    console.log('Unable to retrieve your location');
+  }
+  
+
+function OrganizationPage() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        console.log('Geolocation not supported');
+      }
+      
+    
+
     const [progress, setProgress] = useState(0);
     const [organizationObject, setOrganizationObject] = useState({});
     const [taskObject, setTaskObject] = useState({});
@@ -79,6 +103,13 @@ function OrganizationPage() {
                         </div>
                     </div>
                 </div>
+                <section className="map-section">
+                        <h2>Map</h2>
+                        <Map
+                        lat={organizationObject.latitude}
+                        lng={organizationObject.longitude}
+                        /> 
+                    </section>
            </section>
         </div>
   )
