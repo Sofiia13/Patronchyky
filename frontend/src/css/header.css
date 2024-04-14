@@ -1,0 +1,28 @@
+.header {
+    background: #6B99C3;
+    border-radius: 0px 0px 6px 6px;
+    border: 0;
+    line-height: 0em;
+    padding: 18px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    justify-content:space-around;
+    margin: -8px;
+}
+
+/* Logo text and icon */
+.logo {
+    float: left;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    position:relative;
+}
+a {
+    text-decoration: none;
+}
+.logo-text {
+    color: #fff;
+}
