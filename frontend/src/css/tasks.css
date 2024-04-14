@@ -10,7 +10,7 @@
 }
 
 .selected {
-  background-color: aqua !important;
+  background-color: rgb(171, 251, 251) !important;
 }
 
 .task-desc {

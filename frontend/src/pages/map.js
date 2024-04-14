@@ -28,7 +28,7 @@ const Map = () => {
 
   // Define map container style
   const mapContainerStyle = {
-    width: "800px",
+    width: "944px",
     height: "600px",
   };
 
