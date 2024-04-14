@@ -24,6 +24,7 @@
   display: flex;
   max-width: 380px;
   flex-direction: column;
+  align-items: center;
   color: var(--Blue);
   letter-spacing: 0.5px;
   line-height: 150%;
@@ -129,3 +130,27 @@
 .category-title {
   line-height: 0em;
 }
+
+/*--------------------------*/
+.signup-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.signup-link-wrapper {
+  background: var(--Blue);
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+
+.signup-link-wrapper a{
+  text-decoration: none;
+}
+
+.signup-link {
+  color: var(--LGray);
+}
+

@@ -1,94 +1,72 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate  } from 'react-router-dom'; 
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        reqUsername: '',
-        reqPassword: '',
-        reqEmail: '',
-        reqUniversity: ''
-    });
+  const [formData, setFormData] = useState({
+    reqUsername: "",
+    reqPassword: "",
+    reqEmail: "",
+    reqUniversity: "",
+  });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:3001/auth/register', formData);
-            console.log('Response:', response.data);
-            if (response.data.success === true) {
-                // ендпойнт успішної реєстрації
-                navigate("/validation"); 
-            } else {
-                // якщо з сервера прийшла помилка
-                //placeholder
-                alert('Error during registration')
-            }
-        } catch (error) {
-            // якщо помилка на клієнті
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/auth/register",
+        formData
+      );
+      console.log("Response:", response.data);
+      if (response.data.success === true) {
+        // ендпойнт успішної реєстрації
+        navigate("/validation");
+      } else {
+        // якщо з сервера прийшла помилка
+        //placeholder
+        alert("Error during registration");
+      }
+    } catch (error) {
+      // якщо помилка на клієнті
 
-            console.error('Error:', error);
-            alert('Error: ' + error.message)
-        }
-    };
+      console.error("Error:", error);
+      alert("Error: " + error.message);
+    }
+  };
 
   return (
-    <body>
       <div className="form-area">
         <h3 className="login-signup-title">Sign Up</h3>
-        <form className="form-content" onSubmit={handleSubmit}>
-          <input
-            className="input-wrapper"
-            type="text"
-            id="name"
-            name="reqName"
-            placeholder="Your Name"
-            value={formData.reqName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            className="input-wrapper"
-            type="password"
-            id="password"
-            name="reqPassword"
-            placeholder="Your Password"
-            value={formData.reqPassword}
-            onChange={handleChange}
-            required
-          />
-          <input
-            className="input-wrapper"
-            type="email"
-            id="email"
-            name="reqEmail"
-            placeholder="Your Email"
-            value={formData.reqEmail}
-            onChange={handleChange}
-            required
-          />
-          <button className="submit-button" type="submit" id="signupButton">
-            Sign Up
-          </button>
+          <div className="signup-links">
+            <div className="signup-link-wrapper">
+              <a href="/signup/fororgan" className="signup-link">
+                Sign Up as Organization
+              </a>
+            </div>
+            <div className="signup-link-wrapper">
+              <a href="/signup/foruser" className="signup-link">
+                Sign Up as User
+              </a>
+            </div>
+          </div>
           <p className="text-link">
             Already have account?{" "}
-            <a href="login" className="link">
+            <a href="/login" className="link">
               Login
             </a>
           </p>
-        </form>
       </div>
-    </body>
   );
-}
+};
 
 export default SignupPage;
