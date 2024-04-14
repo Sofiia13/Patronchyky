@@ -7,6 +7,7 @@ const organizationModel = require('../models/organizationModel');
 
 const createOrganization = async (req, res) => {
   const { reqUsername, reqPassword, reqDescription, reqEmail } = req.body;
+  console.log(reqUsername);
   try {
     const userExists = await userModel.findOne({
       $or: [{ name: reqUsername }, { email: reqEmail }],
@@ -20,7 +21,7 @@ const createOrganization = async (req, res) => {
         .status(400)
         .json({ error: "Користувач з таким ім'ям або email вже існує" });
     }
-    const hashedPass = await bcrypt.hash(password, 10);
+    const hashedPass = await bcrypt.hash(reqPassword, 10);
     const newOrg = new orgModel({
       name: reqUsername,
       password: hashedPass,
@@ -35,7 +36,7 @@ const createOrganization = async (req, res) => {
   }
 }
 const createUser = async (req, res) => {
-  const { reqName, reqPassword, reqEmail } = req.body;
+  const { reqUsername, reqPassword, reqEmail } = req.body;
   try {
     // const whitespaceSym = /\s/;
 
@@ -54,10 +55,10 @@ const createUser = async (req, res) => {
     // }
 
     const userExists = await userModel.findOne({
-      $or: [{ name: reqName }, { email: reqEmail }],
+      $or: [{ name: reqUsername }, { email: reqEmail }],
     });
     const orgExists = await orgModel.findOne({
-      $or: [{ name: reqName }, { email: reqEmail }],
+      $or: [{ name: reqUsername }, { email: reqEmail }],
     });
 
     if (userExists || orgExists) {
@@ -69,7 +70,7 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(reqPassword.trim(), 10);
 
     const newUser = await userModel.create({
-      name: reqName.trim(),
+      name: reqUsername,
       password: hashedPassword,
       email: reqEmail,
       verified: true,
@@ -82,7 +83,7 @@ const createUser = async (req, res) => {
     await userModel.create(newUser);
     console.log("Користувач створений");
 
-    const createdUser = await userModel.findOne({ name: reqName.trim() });
+    const createdUser = await userModel.findOne({ name: reqUsername.trim() });
 
     if (!createdUser) {
       return res
@@ -98,21 +99,23 @@ const createUser = async (req, res) => {
 };
 
 
-const loginForUser = async(req, res)=>{
-  const {email, password} = req.body;
+const login = async(req, res)=>{
+  const {reqEmail, reqPassword} = req.body;
+  let account = await userModel.findOne({email: reqEmail});
+  if(!account){
+    account = await orgModel.findOne({email: reqEmail});
+  }
   try {
-    const user = await userModel.findOne({email: email});
-    console.log(user.password);
-    if(!user){
+    if(!account){
       return res.status(400).json({error: "Користувача з таким email не існує"})
     }
-    const hashedPass = user.password;
-    await bcrypt.compare(password, hashedPass).then((match)=>{
+    const hashedPass = account.password;
+    await bcrypt.compare(reqPassword, hashedPass).then((match)=>{
         if(!match){
            return  res.status(400).json({error: "Некоректна комбінація логіну та паролю"});
         }
         else{
-            const accessToken = createToken(user);
+            const accessToken = createToken(account);
               res.cookie("access-token", accessToken, {
                   maxAge: 60 * 60 * 24 * 30 * 1000,
               });
@@ -125,36 +128,10 @@ const loginForUser = async(req, res)=>{
   }
 };
 
-const loginForOrg = async(req, res)=>{
-  const {reqEmail, password} = req.body;
-  try {
-    const organization = await organizationModel.findOne({email: reqEmail});
-  if(!organization){
-    return res.status(400).json({error: "Організації з таким email не існує"})
-  }
-  const hashedPass = organization.password;
-  await bcrypt.compare(password, hashedPass).then((match)=>{
-      if(!match){
-         return  res.status(400).json({error: "Некоректна комбінація логіну та паролю"});
-      }
-      else{
-          const accessToken = createToken(organization);
-          res.cookie("access-token", accessToken, {
-              maxAge: 60 * 60 * 24 * 30 * 1000,
-          });
-          console.log(accessToken);
-          res.sendStatus(200);
-      }
-    })
-    } catch (error) {
-      return res.status(500).json({error});
-    }
-  };
 
 
 module.exports = {
     createOrganization,
     createUser,
-    loginForUser,
-    loginForOrg
+    login
 };
