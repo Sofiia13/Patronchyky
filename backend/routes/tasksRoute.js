@@ -8,6 +8,8 @@ const taskController = require("../controllers/taskContrioller");
 
 router.get('/getTasks/:id', validateToken , taskController.getTasks);
 
+router.get('/getTask/:id', validateToken, taskController.getTask);
+
 router.post('/addTask', validateTokenForOrg , taskController.createTask);
 
 router.put('/UpdateTask', validateTokenForOrg , taskController.updateTaskProgress);
