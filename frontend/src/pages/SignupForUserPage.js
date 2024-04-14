@@ -23,13 +23,13 @@ const SignupForUserPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/register",
+        "http://localhost:3001/auth/signup-user",
         formData
       );
       console.log("Response:", response.data);
       if (response.data.success === true) {
         // ендпойнт успішної реєстрації
-        navigate("/validation");
+        navigate("/login");
       } else {
         // якщо з сервера прийшла помилка
         //placeholder

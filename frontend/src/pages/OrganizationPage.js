@@ -39,10 +39,12 @@ function OrganizationPage() {
         const fetchData = async () => {
             try {
                 const organizationResponse = await axios.get(`http://localhost:3001/organizations/organization/${id}`);
+
                 const taskResponse = await axios.get(`http://localhost:3001/tasks/getTasks/${id}`);
                 setOrganizationObject(organizationResponse.data);
                 setTaskObject(taskResponse.data);
             } catch (error) {
+                
                 if (error.response && error.response.status === 404) {
                     if (error.response.config.url.includes('organizations')) {
                         alert('Organization not found');
