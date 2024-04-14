@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const Map = () => {
-  // Define map container style
+  // Define map container style.
   const mapContainerStyle = {
     width: '800px',
     height: '600px'

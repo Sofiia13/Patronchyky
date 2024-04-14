@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import location from '../img/location.svg';
-import Map from './map'; // Import the Map component
+import Map from './map'; // Import the Map component.
 
 function success(position) {
   console.log('Work');
