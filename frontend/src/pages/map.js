@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useParams } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const Map = () => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -13,11 +15,6 @@ const Map = () => {
           `http://localhost:3001/tasks/getAllTasks`
         ); // Adjust the endpoint URL as per your backend setup
 
-        if (response.data != null) {
-          localStorage.setItem("Array", JSON.stringify(response.data));
-        } else {
-          localStorage.setItem("Array", "response.data");
-        }
         console.log("Tasks received:", response.data); // Print received tasks
         setEvents(response.data);
       } catch (error) {
@@ -55,7 +52,6 @@ const Map = () => {
   };
 
   // State variables for events and selected place
-  const [selectedPlace, setSelectedPlace] = useState(null);
   const [showMarker, setShowMarker] = useState(false);
   const [markerPosition, setMarkerPosition] = useState(null); // State for marker position
 
@@ -73,18 +69,16 @@ const Map = () => {
 
   // Function to handle map click event
   const handleMapClick = (event) => {
-    // Set marker position when the map is clicked
-    setMarkerPosition({
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    });
-    setShowMarker(true); // Show the marker
+    console.log(event); // Show the marker
   };
 
   // Function to handle marker click event
   const handleMarkerClick = (event) => {
     // Perform actions when a marker is clicked
-    console.log("Clicked on ma p :", event.latLng.lat(), event.latLng.lng());
+    console.log(event);
+    setSearchParams({
+      eventId: event._id,
+    });
   };
 
   return (
@@ -99,32 +93,19 @@ const Map = () => {
         onClick={handleMapClick}
       >
         {/* Render event markers */}
-        {events.map((event) => (
+        {Array.from(events).map((event) => (
           <Marker
             key={event.id}
             position={{
-              lat: Number(event.location.coordinates[0]),
-              lng: Number(event.location.coordinates[0]),
+              lat: event.location.coordinates[1],
+              lng: event.location.coordinates[0],
             }}
             icon={{
               scaledSize: new window.google.maps.Size(40, 40),
             }}
-            // onClick={() => handleMarkerClick(event)}
+            onClick={() => handleMarkerClick(event)}
           />
         ))}
-
-        {/* Render selected place marker if available */}
-        {selectedPlace && showMarker && (
-          <Marker
-            position={{
-              lat: selectedPlace.lat,
-              lng: selectedPlace.lng,
-            }}
-            icon={{
-              scaledSize: new window.google.maps.Size(40, 40),
-            }}
-          />
-        )}
 
         {/* Render marker if markerPosition is set */}
         {markerPosition && showMarker && (

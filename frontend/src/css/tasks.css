@@ -1,56 +1,60 @@
 .task {
-    background-color: var(--LGray);
-    border-radius: 6px;
-    padding: 20px 30px;
-    margin-bottom: 20px;
+  background-color: var(--LGray);
+  border-radius: 6px;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+}
+
+.selected {
+  background-color: aqua !important;
 }
 
 .task-desc {
-    display: flex;
-    flex-direction: column;
-    line-height: 0em;
+  display: flex;
+  flex-direction: column;
+  line-height: 0em;
 }
 
 .task-title {
-    margin: 0px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  margin: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .task-description {
-    line-height: 1.5em;
+  line-height: 1.5em;
 }
 
 .task-location {
-    margin: 0px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .icon-img {
-    margin-right: 6px;
+  margin-right: 6px;
 }
 
 .task-progres {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .progress-tracker {
-    margin-left: 16px;
+  margin-left: 16px;
 }
 
 #progress-tracker {
-    width: 300px;
-    height: 20px;
-    background-color: var(--LBlue);
+  width: 300px;
+  height: 20px;
+  background-color: var(--LBlue);
 }
-  
+
 #progress-bar {
-    height: 100%;
-    background-color: var(--Blue);
+  height: 100%;
+  background-color: var(--Blue);
 }

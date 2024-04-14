@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 import location from "../img/location.svg";
 import Map from "./map";
@@ -27,6 +28,8 @@ function OrganizationPage() {
   }
 
   const [progress, setProgress] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [organizationObject, setOrganizationObject] = useState({});
   const [taskObject, setTaskObject] = useState([]);
   let navigate = useNavigate();
@@ -57,12 +60,16 @@ function OrganizationPage() {
           }
         } else {
           alert("Error occurred while retrieving data");
+          console.error("error:", error);
         }
       }
     };
 
     fetchData();
   }, []);
+
+  console.log("taskObject", taskObject);
+  const selectedItem = searchParams.get("eventId");
 
   return (
     <div className="content">
@@ -85,10 +92,14 @@ function OrganizationPage() {
         </div>
         <div className="tasks-gallery">
           {taskObject.map((task, index) => (
-            <div className="task" key={index}>
+            <div
+              className={selectedItem == task._id ? "task selected" : "task"}
+              key={index}
+            >
               <div className="task-desc">
                 <div className="task-title">
                   <h4 className="task-name">Task Name: {task.name}</h4>
+                  {selectedItem === task._id && <span>selected</span>}
                   <p className="task-date">Task Date: {task.createdAt}</p>
                 </div>
                 <div className="task-priority">
@@ -104,19 +115,19 @@ function OrganizationPage() {
                     alt="task-location"
                   />
                   <p>
-                    Task Location: {task.location.latitude} -{" "}
-                    {task.location.longitude}
+                    Task Location: {task.location.coordinates[0]} -{" "}
+                    {task.location.coordinates[1]}
                   </p>
                 </div>
                 <div className="task-progress">
                   <h4>Progress:</h4>
                   <div
                     className="progress-tracker"
-                    id={`progress-tracker-${index}`}
+                    id={`progress-tracker-${25}`}
                   >
                     <div
-                      id={`progress-bar-${index}`}
-                      style={{ width: `${task.progress}%` }}
+                      id={`progress-bar-${25}`}
+                      style={{ width: `${25}%` }}
                     ></div>
                   </div>
                 </div>

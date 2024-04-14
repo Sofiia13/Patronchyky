@@ -49,7 +49,7 @@ const createTask = async (req, res) => {
       description: description,
       location: {
         type: "Point",
-        coordinates: coordinates[(0, 0)],
+        coordinates: coordinates,
       },
       priority: priority,
       progress: progress || 0, // Default progress if not provided
@@ -140,22 +140,36 @@ const getTasks = async (req, res) => {
 const getTask = async (req, res) => {
   const taskId = req.params.id;
   const task = await taskModel.findById(taskId);
-  console.log("Мако=арон розетка", task);
+  console.log("Макарон розетка", task);
   if (!task) {
     return res.status(400).json({ error: "Немає таски за таким ID" });
   }
   return res.status(200).json(task);
 };
 
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, "0"); // Get day and pad with leading zero if needed
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Get month (zero-based) and pad with leading zero if needed
+  const year = date.getFullYear(); // Get full year
+
+  return `${day}.${month}.${year}`;
+};
+
 const getAllTasks = async (req, res) => {
   try {
     const tasks = await taskModel.find();
+
+    const formattedTasks = tasks.map((task) => ({
+      ...task.toObject(), // Convert Mongoose document to plain JavaScript object
+      formattedCreatedAt: formatDate(task.createdAt), // Add formatted date as a new property
+    }));
 
     if (tasks.length === 0) {
       return res.status(200).json([]);
     }
 
-    return res.status(200).json(tasks);
+    return res.status(200).json(formattedTasks); // Return the formattedTasks array
   } catch (error) {
     console.error("Error getting tasks:", error);
     return res.status(500).json({ error: "Internal server error" });
