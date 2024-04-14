@@ -3,7 +3,12 @@
     border-radius: 6px;
     padding: 20px 30px;
     margin-bottom: 20px;
+    transition: width 0.3s ease, font-size 0.3s ease;
 }
+.task:hover {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 10px 36px 0 rgba(0,0,0,0.10);
+  }
+
 
 .task-desc {
     display: flex;
