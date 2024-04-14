@@ -154,3 +154,6 @@
   color: var(--LGray);
 }
 
+.signup-textarea {
+  max-width: 360px;
+}
