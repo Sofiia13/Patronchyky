@@ -15,7 +15,7 @@ function OrganizationPage() {
         const fetchData = async () => {
             try {
                 const organizationResponse = await axios.get(`http://localhost:3001/organizations/organization/${id}`);
-                const taskResponse = await axios.get(`http://localhost:3001//organizations/organization/${id}/tasks`);
+                const taskResponse = await axios.get(`http://localhost:3001/organizations/organization/${id}/tasks`);
                 setOrganizationObject(organizationResponse.data);
                 setTaskObject(taskResponse.data);
             } catch (error) {
@@ -38,10 +38,10 @@ function OrganizationPage() {
         <div className="content">
             <section className='organization-content'>
                 <div className='organization-info'>
-                    <h2 className="organization-name">Organization Name {organizationObject.name}</h2>
+                    <h2 className="organization-name">Organization Name: {organizationObject.name}</h2>
                 </div>
             <div className='section-title'>
-                <h3 className="section-title">Description</h3>
+                <h3 className="section-title">Description:</h3>
             </div>
             <div className='organization-description'>
                 <p>
@@ -57,18 +57,18 @@ function OrganizationPage() {
                     <div className="task">
                         <div className="task-desc">
                             <div className='task-title'>
-                                <h4 className="task-name">task-name {taskObject.name}</h4>
-                                <p className='task-date'>task-date {taskObject.date}</p>
+                                <h4 className="task-name">Task Name: {taskObject.name}</h4>
+                                <p className='task-date'>Task Date: {taskObject.date}</p>
                             </div>
                             <div className='task-priority'>
-                                <p>task-priority {taskObject.priority}</p>
+                                <p>Task Priority: {taskObject.priority}</p>
                             </div>
                             <div className='task-description'>
-                                <p>task-description {taskObject.description}</p>
+                                <p>Task Description: {taskObject.description}</p>
                             </div>
                             <div className='task-location'>
                                 <img className="icon-img" src={location} alt="task-location" />
-                                <>task-location {taskObject.location}</>
+                                <p>Task Location: {taskObject.location}</p>
                             </div>
                             <div className='task-progres'>
                                 <h4>Progres:</h4>
