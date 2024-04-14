@@ -10,9 +10,16 @@ const Map = () => {
   };
 
   // Define the center of the map (New York City)
+  let lat = localStorage.getItem('latitude');
+  let lon = localStorage.getItem('longitude');
+  
+  // Parse latitude and longitude to numbers
+  lat = parseFloat(lat);
+  lon = parseFloat(lon);
+  
   const center = {
-    lat: 40.7128,
-    lng: -74.0060
+    lat: lat,
+    lng: lon
   };
 
   // Define map options
@@ -41,13 +48,13 @@ const Map = () => {
   // Function to handle map click event
   const handleMapClick = (event) => {
     // Perform actions when the map is clicked
-    console.log('Map clicked:', event);
+    alert('Map clicked:', event);
   };
 
   // Function to handle marker click event
   const handleMarkerClick = (event) => {
     // Perform actions when a marker is clicked
-    console.log('Marker clicked:', event);
+    console.log('Clicked on ma p :', event.latLng.lat(), event.latLng.lng());
   };
 
   return (
@@ -55,7 +62,7 @@ const Map = () => {
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
-        zoom={10}
+        zoom={11}
         options={defaultOptions}
         onLoad={handleMapLoad}
         onUnmount={handleMapUnmount}
